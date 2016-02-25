@@ -22,11 +22,21 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Go to the new task screen.
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                EditFragment editFragment = EditFragment.Companion.newInstance();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_main, editFragment, editFragment.getClass().getSimpleName())
+                        .addToBackStack(editFragment.getClass().getSimpleName())
+                        .commit();
             }
         });
+
+        TodosFragment fragment = TodosFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_main, fragment, fragment.getClass().getSimpleName())
+                .commit();
+
     }
 
     @Override
