@@ -16,6 +16,6 @@ public class KotlinMixApplication extends Application {
 
         Realm.setDefaultConfiguration(config);
 
-        Realm.deleteRealm(config);
+        //Realm.deleteRealm(config);
     }
 }

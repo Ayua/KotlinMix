@@ -22,12 +22,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditFragment editFragment = EditFragment.Companion.newInstance();
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.content_main, editFragment, editFragment.getClass().getSimpleName())
-                        .addToBackStack(editFragment.getClass().getSimpleName())
-                        .commit();
+
             }
         });
 
