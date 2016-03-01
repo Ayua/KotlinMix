@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import com.donnfelker.kotlinmix.models.Todo
 import io.realm.Realm
@@ -36,27 +37,6 @@ class EditFragment : Fragment() {
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-
-        if(arguments != null && arguments.containsKey(TODO_ID_KEY)) {
-            val todoId = arguments.getString(TODO_ID_KEY)
-            todo = realm.where(Todo::class.java).equalTo("id", todoId).findFirst()
-            val todoTitle = find<EditText>(R.id.todo_title)
-            todoTitle.setText(todo?.title)
-            val todoDesc = find<EditText>(R.id.todo_desc)
-            todoDesc.setText(todo?.description)
-
-            // TODO Updat button to show "save" instead of "Add"
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        realm.close()
-    }
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return UI {
             verticalLayout {
@@ -71,12 +51,36 @@ class EditFragment : Fragment() {
                     hintResource = R.string.description_hint
                 }
                 button {
+                    id = R.id.todo_add
                     textResource = R.string.add_todo
                     onClick { view -> createTodoFrom(title, desc) }
                 }
             }
         }.view
     }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+
+        if(arguments != null && arguments.containsKey(TODO_ID_KEY)) {
+            val todoId = arguments.getString(TODO_ID_KEY)
+            todo = realm.where(Todo::class.java).equalTo("id", todoId).findFirst()
+            val todoTitle = find<EditText>(R.id.todo_title)
+            todoTitle.setText(todo?.title)
+            val todoDesc = find<EditText>(R.id.todo_desc)
+            todoDesc.setText(todo?.description)
+            val add = find<Button>(R.id.todo_add)
+            add.setText(R.string.save)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        realm.close()
+    }
+
+
 
     /**
      *  A private function to create a TODO item in the database (Realm).
