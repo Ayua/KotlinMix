@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.donnfelker.kotlinmix.models.Todo;
 
@@ -49,6 +50,7 @@ public class TodosFragment extends Fragment implements TodoAdapter.TodoItemClick
         RealmResults<Todo> todos = realm.where(Todo.class).findAll();
         TodoAdapter adapter = new TodoAdapter(getActivity(), todos, true, true, this);
         rv.setAdapter(adapter);
+
     }
 
     @Override
@@ -59,7 +61,7 @@ public class TodosFragment extends Fragment implements TodoAdapter.TodoItemClick
 
     @Override
     public void onTodoClick(View caller, Todo task) {
-        EditFragment editFragment = EditFragment.Companion.newInstance();
+        EditFragment editFragment = EditFragment.Companion.newInstance(task.getId());
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content_main, editFragment, editFragment.getClass().getSimpleName())
