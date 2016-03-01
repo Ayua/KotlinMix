@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.TextView
 import com.donnfelker.kotlinmix.models.Todo
 import io.realm.Realm
 import org.jetbrains.anko.*
