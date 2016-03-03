@@ -61,6 +61,7 @@ public class TodosFragment extends Fragment implements TodoAdapter.TodoItemClick
 
     @Override
     public void onTodoClick(View caller, Todo task) {
+        ((MainActivity)getActivity()).hideFab();
         EditFragment editFragment = EditFragment.Companion.newInstance(task.getId());
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
